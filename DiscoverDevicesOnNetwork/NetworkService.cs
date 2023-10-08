@@ -11,7 +11,7 @@ namespace DiscoverDevicesOnNetwork
 
         public static void Discover()
         {
-            string baseIpAddress = "192.168.1"; // Replace with the base IP address of your LAN
+            string baseIpAddress = "192.168.48"; // Replace with the base IP address of your LAN
             int startRange = 1;
             int endRange = 254; // Adjust the range as needed for your network
 
@@ -36,7 +36,7 @@ namespace DiscoverDevicesOnNetwork
 
                     string macAddress = NetworkService.GetMacAddress(IPAddress.Parse(ipAddress))?.ToString() ?? "notfound";
 
-                    Console.WriteLine($"Device found at IP address: {ipAddress} macAddress: {macAddress}");
+                    Console.WriteLine($"Device found at IP address: \t {ipAddress} \t macAddress: {macAddress} \t hostName: {DiscoverDeviceName(ipAddress)}");
                     // You can perform further checks or actions for the discovered device here.
                 }
             }
@@ -65,6 +65,21 @@ namespace DiscoverDevicesOnNetwork
             else
             {
                 return null!;
+            }
+        }
+
+        static string DiscoverDeviceName(string ipAddress)
+        {
+            try
+            {
+                IPHostEntry hostEntry = Dns.GetHostEntry(ipAddress);
+
+                string deviceName = hostEntry.HostName;
+                return deviceName;
+            }
+            catch (Exception)
+            {
+                return "not found";
             }
         }
     }
