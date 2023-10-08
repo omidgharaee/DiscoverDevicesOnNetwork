@@ -36,7 +36,7 @@ namespace DiscoverDevicesOnNetwork
 
                     string macAddress = NetworkService.GetMacAddress(IPAddress.Parse(ipAddress))?.ToString() ?? "notfound";
 
-                    Console.WriteLine($"Device found at IP address: \t {ipAddress} \t macAddress: {macAddress} \t hostName: {DiscoverDeviceName(ipAddress)}");
+                    Console.WriteLine($"Device found at IP address: {ipAddress, 13} \t macAddress: {macAddress, 12} \t hostName: {DiscoverDeviceName(ipAddress)}");
                     // You can perform further checks or actions for the discovered device here.
                 }
             }
